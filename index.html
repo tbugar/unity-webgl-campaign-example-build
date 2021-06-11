@@ -28,11 +28,11 @@
     <script>
       var myUnityInstance;
       var buildUrl = "Build";
-      var loaderUrl = buildUrl + "/docs.loader.js";
+      var loaderUrl = buildUrl + "/unity-webgl-campaign-example-build.loader.js";
       var config = {
-        dataUrl: buildUrl + "/docs.data.unityweb",
-        frameworkUrl: buildUrl + "/docs.framework.js.unityweb",
-        codeUrl: buildUrl + "/docs.wasm.unityweb",
+        dataUrl: buildUrl + "/unity-webgl-campaign-example-build.data.unityweb",
+        frameworkUrl: buildUrl + "/unity-webgl-campaign-example-build.framework.js.unityweb",
+        codeUrl: buildUrl + "/unity-webgl-campaign-example-build.wasm.unityweb",
         streamingAssetsUrl: "StreamingAssets",
         companyName: "DefaultCompany",
         productName: "unity-webgl-campaign-example",
@@ -75,7 +75,9 @@
           progressBarFull.style.width = 100 * progress + "%";
         }).then((unityInstance) => {
           loadingBar.style.display = "none";
-          console.log("hey callback");
+          fullscreenButton.onclick = () => {
+            unityInstance.SetFullscreen(1);
+          };
 	  myUnityInstance = unityInstance;
           window.addEventListener('message', function(msg){
             if (myUnityInstance == null || myUnityInstance == 'undefined'){
@@ -84,11 +86,6 @@
             }
             myUnityInstance.SendMessage('JsIntruder', 'UpdatePersText', msg.data);
           }, false);
-
-          window.parent.postMessage('call me maybe', '*');
-          fullscreenButton.onclick = () => {
-            unityInstance.SetFullscreen(1);
-          };
         }).catch((message) => {
           alert(message);
         });
