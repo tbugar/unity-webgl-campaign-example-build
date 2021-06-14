@@ -78,7 +78,8 @@
           fullscreenButton.onclick = () => {
             unityInstance.SetFullscreen(1);
           };
-	  myUnityInstance = unityInstance;
+          myUnityInstance = unityInstance;
+          parent.postMessage("Hello there", "*");
           window.addEventListener('message', function(msg){
             if (myUnityInstance == null || myUnityInstance == 'undefined'){
               console.log("myUnityInstance is not set ", myUnityInstance);
